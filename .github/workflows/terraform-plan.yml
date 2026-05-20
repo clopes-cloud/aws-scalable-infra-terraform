@@ -19,6 +19,10 @@ jobs:
     steps: # Definindo os steps
     - name: Checkout
       uses: actions/checkout@v4 # Pré deinifido do github actions
+      
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
     - name: Terraform Plan # Definindo outro step
       run: | # O plan aqui não enviamos ptra outro igual plan.out pois no github é um pouco mais complexo, pra enviar pra outro workflows
         terraform init
