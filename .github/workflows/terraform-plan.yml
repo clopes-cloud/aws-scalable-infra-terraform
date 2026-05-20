@@ -1,0 +1,26 @@
+name: Terraform Plan # Nome do Workflow
+on: push # Toda vez que fazer um commit, esse workflow vai rodar
+env: #Definindo as variaveis, tem que ser exatamente as inseridas la no browser
+  AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+  ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID}}
+  ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
+  ARM_SUBSCRIPTION_ID: ${{secrets.ARM_SUBSCRIPTION_ID}}
+  ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
+  TF_VAR_aws_key_pub: ${{secrets.TF_VAR_aws_key_pub}}
+  TF_VAR_azure_key_pub: ${{secrets.TF_VAR_azure_key_pub}} # No github não tem problema, se ficou com letra maiuscula/minuscula
+
+jobs:
+  terraform_plan: # Nome do job
+    name: Terraform Plan
+    runs-on: ubuntu-latest # Qual tipo de máquina que vai rodar esse workflow
+    defaults:
+      run:
+        shell: bash # indicando qual tipo de shell vai correr esse workflow
+    steps: # Definindo os steps
+    - name: Checkout
+      uses: actions/checkout@v4 # Pré deinifido do github actions
+    - name: Terraform Plan # Definindo outro step
+      run: | # O plan aqui não enviamos ptra outro igual plan.out pois no github é um pouco mais complexo, pra enviar pra outro workflows
+        terraform init
+        terraform validate
+        terraform plan
