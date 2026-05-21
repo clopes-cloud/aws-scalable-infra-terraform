@@ -4,6 +4,7 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 env: #Definindo as variaveis, tem que ser exatamente as inseridas la no browser
+  AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
   ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID}}
   ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
@@ -25,6 +26,14 @@ jobs:
       
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
 
     - name: Terraform Plan # Definindo outro step
       run: | # O plan aqui não enviamos ptra outro igual plan.out pois no github é um pouco mais complexo, pra enviar pra outro workflows
