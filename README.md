@@ -23,7 +23,7 @@ AWS infrastructure project using Terraform with modular architecture and CI/CD a
 │
 ├── .github/
 │   └── workflows/
-│       └── terraform.yml
+│       └── terraform-plan.yml
 │
 ├── main.tf
 ├── ami.tf
