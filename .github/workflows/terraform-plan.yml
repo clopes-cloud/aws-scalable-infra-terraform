@@ -1,5 +1,8 @@
 name: Terraform Plan # Nome do Workflow
-on: push # Toda vez que fazer um commit, esse workflow vai rodar
+on: 
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
 env: #Definindo as variaveis, tem que ser exatamente as inseridas la no browser
   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
   ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID}}
